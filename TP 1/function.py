@@ -18,3 +18,15 @@ def get_distinct(df, column):
             if liste[i-1] == liste[i]:
                 del liste[i]
     return liste
+
+# Statistiques d'un dataframe Pandas
+def get_stats(df: pd.DataFrame, column: str = ''):
+    columns = df.columns.values
+    if column != '':
+        columns = [column]
+    for column in columns:
+        print('')
+        print("Column :", column)
+        print("nan:", df[column].isna().sum())
+        print("distinct:", df[column].nunique())
+        print("total: ", df[column].values.__len__())
