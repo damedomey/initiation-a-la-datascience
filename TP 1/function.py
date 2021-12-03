@@ -42,13 +42,17 @@ def get_stats(df: pd.DataFrame, column: dict = [], save: bool = False ,filename:
     ax.bar(x+width, distinct, width, color='b')
     ax.bar(x+2*width, values, width, color='g')
     ax.bar(x+3*width, df.shape[0], width, color='y')
-    ax.tick_params(axis='x', rotation=90)
+    rotate = 45 if len(columns) < 20 else 90
+    ax.tick_params(axis='x', rotation=rotate)
     ax.set_xticks(x)
     ax.set_xticklabels(columns)
+    plt.xlabel('Colonnes')
+    plt.ylabel("Nombre d'occurrences")
     ax.legend(('Valeurs nulles', 'Valeurs distinctes', 'Valeurs non nulles', 'Total'))
 
     new_df = pd.DataFrame({'Valeurs nulles': nan, 'Valeurs distinctes': distinct, 'Valeurs non nulles': values, 'Total': df.shape[0]})
 
     ax.table(cellText=new_df.T.values, colLabels=columns, rowLabels=new_df.columns, loc='top')
     if save:
+        plt.title("Statistiques de {}".format(filename.split('.')[0].upper()), y=0.95)
         plt.savefig('data/images/{}'.format(filename))
