@@ -55,4 +55,4 @@ def get_stats(df: pd.DataFrame, column: dict = [], save: bool = False ,filename:
     ax.table(cellText=new_df.T.values, colLabels=columns, rowLabels=new_df.columns, loc='top')
     if save:
         plt.title("Statistiques de {}".format(filename.split('.')[0].upper()), y=0.95)
-        plt.savefig('data/images/{}'.format(filename))
+        plt.savefig('data/images/{}'.format(filename), bbox_inches='tight')
